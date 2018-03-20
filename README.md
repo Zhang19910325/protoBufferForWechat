@@ -26,20 +26,20 @@
 	
 	```
 	/usr/local/lib
-└─┬ protobufjs@6.8.6 
-  ├── @protobufjs/aspromise@1.1.2 
-  ├── @protobufjs/base64@1.1.2 
-  ├── @protobufjs/codegen@2.0.4 
-  ├── @protobufjs/eventemitter@1.1.0 
-  ├── @protobufjs/fetch@1.1.0 
-  ├── @protobufjs/float@1.0.2 
-  ├── @protobufjs/inquire@1.1.0 
-  ├── @protobufjs/path@1.1.2 
-  ├── @protobufjs/pool@1.1.0 
-  ├── @protobufjs/utf8@1.1.0 
-  ├── @types/long@3.0.32 
-  ├── @types/node@8.9.5 
-  └── long@4.0.0 
+	└─┬ protobufjs@6.8.6 
+	  ├── @protobufjs/aspromise@1.1.2 
+	  ├── @protobufjs/base64@1.1.2 
+	  ├── @protobufjs/codegen@2.0.4 
+	  ├── @protobufjs/eventemitter@1.1.0 
+	  ├── @protobufjs/fetch@1.1.0 
+	  ├── @protobufjs/float@1.0.2 
+	  ├── @protobufjs/inquire@1.1.0 
+	  ├── @protobufjs/path@1.1.2 
+	  ├── @protobufjs/pool@1.1.0 
+	  ├── @protobufjs/utf8@1.1.0 
+	  ├── @types/long@3.0.32 
+	  ├── @types/node@8.9.5 
+	  └── long@4.0.0 
 
 	```
 	证明安装成功
@@ -62,50 +62,50 @@
                    static        Static code without reflection (non-functional on its own)
                    static-module Static code without reflection as a module
 
-  -p, --path       Adds a directory to the include path.
+  	-p, --path       Adds a directory to the include path.
 
-  -o, --out        Saves to a file instead of writing to stdout.
+  	-o, --out        Saves to a file instead of writing to stdout.
 
-  --sparse         Exports only those types referenced from a main file (experimental).
+  	--sparse         Exports only those types referenced from a main file (experimental).
 
-  Module targets only:
+  	Module targets only:
 
-  -w, --wrap       Specifies the wrapper to use. Also accepts a path to require a custom wrapper.
+  	-w, --wrap       Specifies the wrapper to use. Also accepts a path to require a custom wrapper.
 
-                   default   Default wrapper supporting both CommonJS and AMD
-                   commonjs  CommonJS wrapper
-                   amd       AMD wrapper
-                   es6       ES6 wrapper (implies --es6)
-                   closure   A closure adding to protobuf.roots where protobuf is a global
+                   	default   Default wrapper supporting both CommonJS and AMD
+                   	commonjs  CommonJS wrapper
+                   	amd       AMD wrapper
+                   	es6       ES6 wrapper (implies --es6)
+                   	closure   A closure adding to protobuf.roots where protobuf is a global
 
-  --dependency     Specifies which version of protobuf to require. Accepts any valid module id
+  	--dependency     Specifies which version of protobuf to require. Accepts any valid module id
 
-  -r, --root       Specifies an alternative protobuf.roots name.
+  	-r, --root       Specifies an alternative protobuf.roots name.
 
-  -l, --lint       Linter configuration. Defaults to protobuf.js-compatible rules:
+  	-l, --lint       Linter configuration. Defaults to protobuf.js-compatible rules:
 
-                   eslint-disable block-scoped-var, no-redeclare, no-control-regex, no-prototype-builtins
+                   	eslint-disable block-scoped-var, no-redeclare, no-control-regex, no-prototype-builtins
 
-  --es6            Enables ES6 syntax (const/let instead of var)
+  	--es6            	Enables ES6 syntax (const/let instead of var)
 
-  Proto sources only:
+  	Proto sources only:
 
-  --keep-case      Keeps field casing instead of converting to camel case.
+  	--keep-case      Keeps field casing instead of converting to camel case.
 
-  Static targets only:
+  	Static targets only:
 
-  --no-create      Does not generate create functions used for reflection compatibility.
-  --no-encode      Does not generate encode functions.
-  --no-decode      Does not generate decode functions.
-  --no-verify      Does not generate verify functions.
-  --no-convert     Does not generate convert functions like from/toObject
-  --no-delimited   Does not generate delimited encode/decode functions.
-  --no-beautify    Does not beautify generated code.
-  --no-comments    Does not output any JSDoc comments.
+  	--no-create      Does not generate create functions used for reflection compatibility.
+  	--no-encode      Does not generate encode functions.
+  	--no-decode      Does not generate decode functions.
+  	--no-verify      Does not generate verify functions.
+  	--no-convert     Does not generate convert functions like from/toObject
+  	--no-delimited   Does not generate delimited encode/decode functions.
+  	--no-beautify    Does not beautify generated code.
+  	--no-comments    Does not output any JSDoc comments.
 
-  --force-long     Enfores the use of 'Long' for s-/u-/int64 and s-/fixed64 fields.
-  --force-number   Enfores the use of 'number' for s-/u-/int64 and s-/fixed64 fields.
-  --force-message  Enfores the use of message instances instead of plain objects.
+  	--force-long     Enfores the use of 'Long' for s-/u-/int64 and s-/fixed64 fields.
+  	--force-number   Enfores the use of 'number' for s-/u-/int64 and s-/fixed64 fields.
+  	--force-message  Enfores the use of message instances instead of plain objects.
 	
 	```
 	
@@ -130,7 +130,7 @@
 	```
 	*  这时我们会得到一个awesome.json文件，内容如下
 
-	```
+	```json
 	{
  	 "nested": {
  	 	"AwesomeMessage": {
@@ -147,7 +147,7 @@
 	*  但此时的json文件我们不能直接使用，不过我们可以将json对象取出放到小程序项目当中去，比如在小程序项目中新建一个awesome.js，内容为
 
 	
-	```
+	```js
 	module.exports = {
     	"nested": {
         	"AwesomeMessage": {
