@@ -70,7 +70,7 @@ function encoder(mtype){
                             if(field.resolvedType.group){
                                 _types[index].encode(ref,writer.uint32((field.id << 3 | 3) >>> 0)).uint32((field.id << 3 | 4) >>> 0);
                             }else {
-                                _types[index].encode(ref,writer.uint32((field.id << 3 | 3) >>> 0).fork()).ldelim();
+                                _types[index].encode(ref,writer.uint32((field.id << 3 | 2) >>> 0).fork()).ldelim();
                             }
                         }else {
                             writer.uint32((field.id << 3 | wireType) >>> 0)[type](ref);
