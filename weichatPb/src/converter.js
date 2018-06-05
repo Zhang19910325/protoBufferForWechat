@@ -18,10 +18,10 @@ function valuePartial_fromObject(field, fieldIndex, propName, options){
     var d       = options['d'];
     var _types  = options['types'];
     var ksi     = options['ksi'];
-    var kisFlag = typeof ksi != 'undefined';
+    var ksiFlag = typeof ksi != 'undefined';
     if(field.resolvedType){
         if(field.resolvedType instanceof Enum){
-            var prop = kisFlag ? d[propName][ksi] : d[propName];
+            var prop = ksiFlag ? d[propName][ksi] : d[propName];
             var values = field.resolvedType.values,
                 keys = Object.keys(values);
             for (var i = 0; i < keys.length; i++){
@@ -29,16 +29,16 @@ function valuePartial_fromObject(field, fieldIndex, propName, options){
                     continue;
                 }
                 if(keys[i] == prop || values[keys[i]] == prop){
-                    kisFlag ?
+                    ksiFlag ?
                         m[propName][ksi] = values[keys[i]] :
                         m[propName] = values[keys[i]];
                     break
                 }
             }
         }else {
-            if(typeof (kisFlag ? d[propName][ksi] : d[propName]) !== 'object')
+            if(typeof (ksiFlag ? d[propName][ksi] : d[propName]) !== 'object')
                 throw TypeError(field.fullName + ": object expected");
-            kisFlag ?
+            ksiFlag ?
                 m[propName][ksi] = _types[fieldIndex].fromObject(d[propName][ksi]):
                 m[propName] = _types[fieldIndex].fromObject(d[propName]);
         }
@@ -47,20 +47,20 @@ function valuePartial_fromObject(field, fieldIndex, propName, options){
         switch (field.type){
             case "double":
             case "float":
-                kisFlag ?
+                ksiFlag ?
                     m[propName][ksi] = Number(d[propName][ksi]) :
                     m[propName] = Number(d[propName]);
                 break;
             case "uint32":
             case "fixed32":
-                kisFlag ?
+                ksiFlag ?
                     m[propName][ksi] = d[propName][ksi] >>> 0:
                     m[propName] = d[propName] >>> 0;
                 break;
             case "int32":
             case "sint32":
             case "sfixed32":
-                kisFlag ?
+                ksiFlag ?
                     m[propName][ksi] = d[propName][ksi] | 0 :
                     m[propName] = d[propName] |0;
                 break;
@@ -72,39 +72,39 @@ function valuePartial_fromObject(field, fieldIndex, propName, options){
             case "fixed64":
             case "sfixed64":
                 if(util.Long)
-                    kisFlag ?
+                    ksiFlag ?
                         m[propName][ksi] = util.Long.fromValue(d[propName][ksi]).unsigned = isUnsigned :
                         m[propName] = util.Long.fromValue(d[propName]).unsigned = isUnsigned;
-                else if(typeof (kisFlag ? d[propName][ksi] : d[propName]) === 'string')
-                    kisFlag ?
+                else if(typeof (ksiFlag ? d[propName][ksi] : d[propName]) === 'string')
+                    ksiFlag ?
                         m[propName][ksi] =parseInt(d[propName][ksi], 10) :
                         m[propName] =parseInt(d[propName], 10);
-                else if(typeof (kisFlag ? d[propName][ksi] : d[propName]) === 'number')
-                    kisFlag ?
+                else if(typeof (ksiFlag ? d[propName][ksi] : d[propName]) === 'number')
+                    ksiFlag ?
                         m[propName][ksi] = d[propName][ksi] :
                         m[propName] = d[propName];
-                else if(typeof (kisFlag ? d[propName][ksi] : d[propName]) === 'object')
-                    kisFlag ?
+                else if(typeof (ksiFlag ? d[propName][ksi] : d[propName]) === 'object')
+                    ksiFlag ?
                         m[propName][ksi] = new util.LongBits(d[propName][ksi].low >>> 0, d[propName][ksi].high >>> 0).toNumber(isUnsigned) :
                         m[propName] = new util.LongBits(d[propName].low >>> 0, d[propName].high >>> 0).toNumber(isUnsigned);
                 break;
             case "bytes":
-                if(typeof (kisFlag ? d[propName][ksi] : d[propName]) ==="string")
-                    kisFlag ?
+                if(typeof (ksiFlag ? d[propName][ksi] : d[propName]) ==="string")
+                    ksiFlag ?
                         util.base64.decode(d[propName][ksi],m[propName][ksi]=util.newBuffer(util.base64.length(d[propName][ksi])),0) :
                         util.base64.decode(d[propName],m[propName]=util.newBuffer(util.base64.length(d[propName])),0);
-                else if((kisFlag ? d[propName][ksi] : d[propName]).length)
-                    kisFlag?
+                else if((ksiFlag ? d[propName][ksi] : d[propName]).length)
+                    ksiFlag?
                         m[propName][ksi]=d[propName][ksi] :
                         m[propName]=d[propName];
                 break;
             case "string":
-                kisFlag?
+                ksiFlag?
                     m[propName][ksi]=String(d[propName][ksi]) :
                     m[propName]=String(d[propName]);
                 break;
             case "bool":
-                kisFlag?
+                ksiFlag?
                     m[propName][ksi]=Boolean(d[propName][ksi]):
                     m[propName]=Boolean(d[propName]);
                 break;
@@ -138,7 +138,7 @@ converter.fromObject = function fromObject(mtype){
                     }
                     var ks = Object.keys(d[propName]);
                     for ( _i = 0; _i<ks.length ; ++_i)
-                        valuePartial_fromObject(field, i, propName, util.merge(util.copy(options), {m:m,d:d,kis : ks[_i]}));
+                        valuePartial_fromObject(field, i, propName, util.merge(util.copy(options), {m:m,d:d,ksi : ks[_i]}));
                 }else if(field.repeated){
                     if(d[propName]){
                         if(!Array.isArray(d[propName]))
@@ -170,14 +170,14 @@ function valuePartial_toObject (field, fieldIndex, propName, options){
     var _types  = options['types'];
     var ksi     = options['ksi'];
     var o       = options['o'];
-    var kisFlag = typeof ksi != 'undefined';
+    var ksiFlag = typeof ksi != 'undefined';
     if(field.resolvedType){
         if (field.resolvedType instanceof  Enum)
-            kisFlag ?
+            ksiFlag ?
                 (d[propName][ksi] = o.enums===String?_types[fieldIndex].values[m[propName][ksi]]:m[propName][ksi]) :
                 (d[propName] = o.enums===String?_types[fieldIndex].values[m[propName]]:m[propName]);
         else
-            kisFlag ?
+            ksiFlag ?
                 d[propName][ksi] = _types[fieldIndex].toObject(m[propName][ksi], o) :
                 d[propName] = _types[fieldIndex].toObject(m[propName], o);
     }else {
@@ -185,7 +185,7 @@ function valuePartial_toObject (field, fieldIndex, propName, options){
         switch (field.type) {
             case "double":
             case "float":
-                kisFlag ? (d[propName][ksi] = o.json && !isFinite(m[propName][ksi])? String(m[propName][ksi]):m[propName][ksi]) :
+                ksiFlag ? (d[propName][ksi] = o.json && !isFinite(m[propName][ksi])? String(m[propName][ksi]):m[propName][ksi]) :
                     (d[propName] = o.json && !isFinite(m[propName])? String(m[propName]):m[propName]);
                 break;
             case "uint64":
@@ -196,11 +196,11 @@ function valuePartial_toObject (field, fieldIndex, propName, options){
             case "fixed64":
             case "sfixed64":
                 if(typeof m[propName][ksi] === 'number')
-                    kisFlag ?
+                    ksiFlag ?
                         (d[propName][ksi] = o.longs === String ? String(m[propName][ksi]) : m[propName][ksi]) :
                         (d[propName] = o.longs === String ? String(m[propName]) : m[propName]);
                 else
-                    kisFlag ?
+                    ksiFlag ?
                         (d[propName][ksi] =
                         o.longs === String ?
                             util.Long.prototype.toString.call(m[propName][ksi]) :
@@ -211,7 +211,7 @@ function valuePartial_toObject (field, fieldIndex, propName, options){
                                 o.longs === Number ? new  util.LongBits(m[propName].low >>> 0, m[propName].high >>> 0).toNumber(isUnsigned) : m[propName]);
                 break;
             case "bytes":
-                kisFlag?
+                ksiFlag?
                     (d[propName][ksi] =
                     o.bytes === String ?
                         util.base64.encode(m[propName][ksi], 0, m[propName][ksi].length) :
@@ -222,7 +222,7 @@ function valuePartial_toObject (field, fieldIndex, propName, options){
                             o.bytes === Array ? Array.prototype.slice.call(m[propName]) : m[propName]);
                 break;
             default:
-                kisFlag ? d[propName][ksi] = m[propName][ksi] : d[propName] = m[propName];
+                ksiFlag ? d[propName][ksi] = m[propName][ksi] : d[propName] = m[propName];
                 break;
         }
     }
@@ -302,14 +302,14 @@ converter.toObject   = function toObject(mtype){
                     if (m[propName]&&(ks2 = Object.keys(m[propName]).length)){
                         d[propName] = {};
                         for (j = 0; j < ks2.length; ++j){
-                            valuePartial_toObject(field, index, propName, util.merge(util.copy(options), {m:m,d:d,kis :ks2[j],o:o}));
+                            valuePartial_toObject(field, index, propName, util.merge(util.copy(options), {m:m,d:d,ksi :ks2[j],o:o}));
                         }
                     }
                 }else if(field.repeated){
                     if(m[propName]&&m[propName].length){
                         d[propName] = [];
                         for (j = 0; j < m[propName].length; ++j){
-                            valuePartial_toObject(field, index, propName, util.merge(util.copy(options), {m:m,d:d,kis:j,o:o}))
+                            valuePartial_toObject(field, index, propName, util.merge(util.copy(options), {m:m,d:d,ksi:j,o:o}))
                         }
                     }
                 }else {
