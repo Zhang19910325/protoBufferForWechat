@@ -271,7 +271,7 @@ converter.toObject   = function toObject(mtype){
                         field       = normalFields[i],
                         propName    = field.name;
                         if(field.resolvedType instanceof Enum)
-                            d[propName] = o.enums = String ? field.resolvedType.valuesById[field.typeDefault] : field.typeDefault;
+                            d[propName] = o.enums === String ? field.resolvedType.valuesById[field.typeDefault] : field.typeDefault;
                         else if(field.long){
                             if(util.Long){
                                 var n = new util.Long(field.typeDefault.low, field.typeDefault.high, field.typeDefault.unsigned);
