@@ -1,5 +1,6 @@
 module.exports = LongBits;
 
+var  util = require('./util');
 function LongBits(lo, hi) {
     this.lo = lo >>> 0;
     this.hi = hi >>> 0;
@@ -55,11 +56,11 @@ LongBits.prototype.toNumber = function toNumber(unsigned) {
     return this.lo + this.hi * 4294967296;
 };
 LongBits.prototype.toLong = function toLong(unsigned) {
-    //return util.Long
-    //    ? new util.Long(this.lo | 0, this.hi | 0, Boolean(unsigned))
-    //    /* istanbul ignore next */
-    //    : { low: this.lo | 0, high: this.hi | 0, unsigned: Boolean(unsigned) };
-    return { low: this.lo | 0, high: this.hi | 0, unsigned: Boolean(unsigned) };
+    return util.Long
+       ? new util.Long(this.lo | 0, this.hi | 0, Boolean(unsigned))
+       /* istanbul ignore next */
+       : { low: this.lo | 0, high: this.hi | 0, unsigned: Boolean(unsigned) };
+    // return { low: this.lo | 0, high: this.hi | 0, unsigned: Boolean(unsigned) };
 };
 
 var charCodeAt = String.prototype.charCodeAt;
