@@ -1,5 +1,5 @@
 module.exports = LongBits;
-
+var  util = require('./util');
 function LongBits(lo, hi) {
     this.lo = lo >>> 0;
     this.hi = hi >>> 0;
@@ -39,7 +39,10 @@ LongBits.from = function from(value) {
     if (typeof value === "number")
         return LongBits.fromNumber(value);
     if (typeof value === "string" || value instanceof String) {
-        return LongBits.fromNumber(parseInt(value, 10));
+        if (util.Long)
+            value = util.Long.fromString(value);
+        else
+            return LongBits.fromNumber(parseInt(value, 10));
     }
     return value.low || value.high ? new LongBits(value.low >>> 0, value.high >>> 0) : zero;
 };
@@ -120,3 +123,5 @@ LongBits.prototype.length = function length() {
         : part1 < 2097152 ? 7 : 8
         : part2 < 128 ? 9 : 10;
 };
+
+
