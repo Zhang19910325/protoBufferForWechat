@@ -15,7 +15,7 @@ function verifyValue(field, fieldIndex, ref, options){
     if(field.resolvedType){
         if(field.resolvedType instanceof Enum){
             var keys = Object.keys(field.resolvedType.values);
-            if (keys.indexOf(ref)<0){
+            if (keys[ref] === undefined){
                 //没有找到时候
                 return invalid(field, "enum value");
             }
