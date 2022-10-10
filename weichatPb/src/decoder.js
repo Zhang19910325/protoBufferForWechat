@@ -52,9 +52,9 @@ function decoder(mtype){
                             }
                         }else {
                             if(types.basic[type] == undefined){
-                                m[name] = _types[i].decode(r, r.uint32());
+                                m[name][typeof k ==='object' ? _util.longToHash(k):k] = _types[i].decode(r, r.uint32());
                             }else {
-                                m[name] = r[type]();
+                                m[name][typeof k ==='object' ? _util.longToHash(k):k] = r[type]();
                             }
                         }
                     }else if(field.repeated){
