@@ -299,7 +299,7 @@ converter.toObject   = function toObject(mtype){
                     if (!hasKs2){
                         hasKs2 = true;
                     }
-                    if (m[propName]&&(ks2 = Object.keys(m[propName]).length)){
+                    if (m[propName]&&(ks2 = Object.keys(m[propName]))){
                         d[propName] = {};
                         for (j = 0; j < ks2.length; ++j){
                             valuePartial_toObject(field, index, propName, util.merge(util.copy(options), {m:m,d:d,ksi :ks2[j],o:o}));
